@@ -1,0 +1,29 @@
+---
+import { profile } from "@/data/profile";
+---
+
+<footer class="border-gold/10 border-t bg-black px-6 py-20 text-center md:px-8">
+  <div class="mx-auto max-w-7xl">
+    <p class="text-gold-muted font-mono text-[0.65rem] tracking-[0.42em] uppercase">
+      Directed By
+    </p>
+
+    <p class="text-cream mt-4 font-serif text-4xl italic md:text-5xl">
+      {profile.name}
+    </p>
+
+    <p
+      class="text-cream-muted/45 mt-10 font-mono text-[0.65rem] tracking-[0.38em] uppercase"
+    >
+      Portfolio · 2024 · All Rights Reserved
+    </p>
+
+    <div class="text-cream-muted/30 mt-10 flex items-center justify-center gap-6">
+      <span class="text-3xl">◉</span>
+      <span class="font-mono text-[0.65rem] tracking-[0.25em] uppercase">
+        End of Reel · 24FPS
+      </span>
+      <span class="text-3xl">◉</span>
+    </div>
+  </div>
+</footer>
