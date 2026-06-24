@@ -1,0 +1,60 @@
+---
+import type { Project } from "@/data/projects";
+
+type Props = {
+  project: Project;
+};
+
+const { project } = Astro.props;
+---
+
+<article
+  class:list={[
+    "group border-gold/15 bg-card hover:border-gold/35 relative overflow-hidden rounded-lg border p-7 transition-colors md:p-9",
+    project.size === "wide" ? "md:col-span-2" : "",
+  ]}
+>
+  <div class="border-gold/8 absolute inset-x-0 top-0 h-4 border-b bg-black/15"></div>
+
+  <div class="relative z-10 flex flex-wrap items-center gap-4 pt-5">
+    <span
+      class="bg-primary text-primary-foreground rounded-sm px-4 py-2 font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase"
+    >
+      {project.label}
+    </span>
+
+    <span class="text-cream-muted/45 font-mono text-[0.7rem] tracking-[0.28em] uppercase">
+      Reel · {project.reel}
+    </span>
+  </div>
+
+  <div class="relative z-10 mt-8 max-w-3xl">
+    <h3
+      class="font-display text-cream text-4xl leading-tight font-black tracking-[-0.035em] md:text-5xl"
+    >
+      {project.title}
+    </h3>
+
+    <p class="text-cream-muted mt-5 max-w-2xl text-base leading-8 md:text-lg">
+      {project.description}
+    </p>
+  </div>
+
+  <div class="relative z-10 mt-10 flex flex-wrap gap-3 pr-20">
+    {
+      project.tags.map((tag) => (
+        <span class="text-gold-muted font-mono text-[0.7rem] tracking-[0.2em] uppercase">
+          #{tag}
+        </span>
+      ))
+    }
+  </div>
+
+  <a
+    href={project.href ?? "#"}
+    aria-label={`Open ${project.title}`}
+    class="border-gold/35 text-gold group-hover:border-gold group-hover:bg-gold group-hover:text-background absolute right-8 bottom-8 flex h-12 w-12 items-center justify-center rounded-full border font-mono text-xl transition-all group-hover:-translate-y-1"
+  >
+    ↗
+  </a>
+</article>
