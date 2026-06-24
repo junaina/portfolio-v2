@@ -1,0 +1,85 @@
+---
+import SceneLabel from "@/components/film/SceneLabel.astro";
+import { profile } from "@/data/profile";
+
+const contactCards = [
+  {
+    label: "Email",
+    value: profile.email,
+    href: `mailto:${profile.email}`,
+    icon: "✉",
+  },
+  {
+    label: "LinkedIn",
+    value: "linkedin.com/in/nurjunaina",
+    href: profile.linkedin,
+    icon: "in",
+  },
+  {
+    label: "GitHub",
+    value: "github.com/nurjunaina",
+    href: profile.github,
+    icon: "{ }",
+  },
+] as const;
+---
+
+<section
+  id="contact"
+  class="border-gold/10 bg-background relative overflow-hidden border-t px-6 pt-28 pb-36 md:px-8 md:py-36"
+>
+  <div
+    class="bg-burgundy/15 pointer-events-none absolute top-0 left-1/2 h-96 w-96 -translate-x-1/2 rounded-full blur-3xl"
+  >
+  </div>
+
+  <div class="relative z-10 mx-auto max-w-7xl">
+    <SceneLabel scene="SC. 04" label="Closing Credits" />
+
+    <div class="mt-16 grid gap-14 lg:grid-cols-[0.9fr_1fr] lg:items-start">
+      <div>
+        <h2 class="text-cream font-serif text-5xl leading-tight italic md:text-7xl">
+          Let&apos;s make something worth watching.
+        </h2>
+
+        <p class="text-cream-muted mt-8 max-w-2xl text-lg leading-8">
+          {profile.availability} Feel free to reach out.
+        </p>
+
+        <a
+          href={profile.cvPath}
+          class="bg-gold text-background mt-10 inline-flex min-h-14 items-center justify-center px-9 font-mono text-xs tracking-[0.32em] uppercase transition-transform hover:-translate-y-0.5"
+        >
+          ↓ Download CV
+        </a>
+      </div>
+
+      <div class="space-y-6">
+        {
+          contactCards.map((card) => (
+            <a
+              href={card.href}
+              target={card.href.startsWith("http") ? "_blank" : undefined}
+              rel={card.href.startsWith("http") ? "noreferrer" : undefined}
+              class="group border-gold/15 bg-card hover:border-gold/40 flex items-center gap-6 rounded-lg border p-6 transition-colors"
+            >
+              <span class="border-gold/25 text-gold group-hover:border-gold group-hover:bg-gold group-hover:text-background flex h-16 w-16 shrink-0 items-center justify-center rounded-md border font-mono text-lg transition-colors">
+                {card.icon}
+              </span>
+
+              <span>
+                <span class="text-cream-muted/55 block font-mono text-[0.65rem] tracking-[0.42em] uppercase">
+                  {card.label}
+                </span>
+
+                <span class="text-cream mt-2 block text-lg font-semibold break-all md:text-xl">
+                  {card.value}
+                </span>
+              </span>
+            </a>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>
