@@ -1,4 +1,5 @@
 ---
+import FloatingAssistant from "@/components/assistant/FloatingAssistant";
 import "@/styles/global.css";
 
 type Props = {
@@ -34,5 +35,6 @@ const {
 
   <body>
     <slot />
+    <FloatingAssistant client:idle />
   </body>
 </html>

@@ -1,21 +1,15 @@
 ---
 import BaseLayout from "@/components/layout/BaseLayout.astro";
+import Navbar from "@/components/layout/Navbar.astro";
+import HeroSection from "@/components/sections/HeroSection.astro";
+import PlaceholderSections from "@/components/sections/PlaceholderSections.astro";
 ---
 
 <BaseLayout>
-  <main class="flex min-h-screen items-center justify-center px-6 text-center">
-    <section class="max-w-3xl">
-      <p class="mb-4 font-mono text-xs uppercase tracking-[0.35em] text-[var(--gold)]">
-        Portfolio Reel 
-      </p>
+  <Navbar />
 
-      <h1 class="font-serif text-5xl font-bold text-[var(--cream)] md:text-7xl">
-        Nur Junaina
-      </h1>
-
-      <p class="mt-6 text-lg text-[color:oklch(0.92_0.03_80_/_70%)]">
-       
-      </p>
-    </section>
+  <main>
+    <HeroSection />
+    <PlaceholderSections />
   </main>
 </BaseLayout>
