@@ -1,0 +1,8 @@
+---
+import ProjectCard from "@/components/project/ProjectCard.astro";
+import { projects } from "@/data/projects";
+---
+
+<div class="grid gap-7 md:grid-cols-2">
+  {projects.map((project) => <ProjectCard project={project} />)}
+</div>

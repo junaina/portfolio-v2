@@ -1,8 +1,11 @@
 ---
 import BaseLayout from "@/components/layout/BaseLayout.astro";
+import FilmStripBand from "@/components/film/FilmStripBand.astro";
 import Navbar from "@/components/layout/Navbar.astro";
+import ContactPlaceholder from "@/components/sections/ContactPlaceholder.astro";
 import HeroSection from "@/components/sections/HeroSection.astro";
-import PlaceholderSections from "@/components/sections/PlaceholderSections.astro";
+import ProjectsSection from "@/components/sections/ProjectsSection.astro";
+import SkillsSection from "@/components/sections/SkillsSection.astro";
 ---
 
 <BaseLayout>
@@ -10,6 +13,15 @@ import PlaceholderSections from "@/components/sections/PlaceholderSections.astro
 
   <main>
     <HeroSection />
-    <PlaceholderSections />
+
+    <FilmStripBand frameStart={1} />
+
+    <SkillsSection />
+
+    <FilmStripBand reverse frameStart={12} />
+
+    <ProjectsSection />
+
+    <ContactPlaceholder />
   </main>
 </BaseLayout>

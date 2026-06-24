@@ -1,0 +1,58 @@
+---
+type Props = {
+  reverse?: boolean;
+  frameStart?: number;
+};
+
+const { reverse = false, frameStart = 1 } = Astro.props;
+
+const frames = Array.from({ length: 28 }, (_, index) => frameStart + index);
+const repeatedFrames = [...frames, ...frames];
+
+function formatFrameNumber(frame: number): string {
+  return frame.toString().padStart(3, "0");
+}
+---
+
+<div
+  aria-hidden="true"
+  class="border-gold/15 relative h-16 overflow-hidden border-y bg-black"
+>
+  <div
+    class:list={[
+      "flex h-full w-[200%]",
+      reverse ? "animate-film-scroll-reverse" : "animate-film-scroll",
+    ]}
+  >
+    {
+      repeatedFrames.map((frame) => (
+        <div class="bg-burgundy-deep relative flex h-16 min-w-28 shrink-0 border-r border-black/45">
+          <div class="absolute top-1.5 right-0 left-0 flex justify-around">
+            <span class="bg-cream/85 h-2 w-4 rounded-full" />
+            <span class="bg-cream/85 h-2 w-4 rounded-full" />
+          </div>
+
+          <div class="absolute right-0 bottom-1.5 left-0 flex justify-around">
+            <span class="bg-cream/85 h-2 w-4 rounded-full" />
+            <span class="bg-cream/85 h-2 w-4 rounded-full" />
+          </div>
+
+          <div class="text-cream/32 flex w-full items-center justify-center gap-2 px-4 pt-1 font-mono text-[0.55rem] tracking-[0.16em] uppercase">
+            <span>{formatFrameNumber(frame)}</span>
+            <span>·</span>
+            <span>Kodak</span>
+          </div>
+        </div>
+      ))
+    }
+  </div>
+
+  <div
+    class="pointer-events-none absolute inset-y-0 left-0 w-16 bg-gradient-to-r from-black to-transparent"
+  >
+  </div>
+  <div
+    class="pointer-events-none absolute inset-y-0 right-0 w-16 bg-gradient-to-l from-black to-transparent"
+  >
+  </div>
+</div>

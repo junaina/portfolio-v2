@@ -51,3 +51,21 @@
 .animate-slow-drift {
   animation: slow-drift 9s ease-in-out infinite;
 }
+
+@keyframes film-scroll {
+  from {
+    transform: translateX(0);
+  }
+
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.animate-film-scroll {
+  animation: film-scroll 42s linear infinite;
+}
+
+.animate-film-scroll-reverse {
+  animation: film-scroll 42s linear infinite reverse;
+}
