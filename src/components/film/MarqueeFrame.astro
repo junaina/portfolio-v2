@@ -1,0 +1,43 @@
+---
+import Bulbs from "@/components/film/Bulbs.astro";
+---
+
+<div
+  class="marquee-frame border-gold/70 bg-burgundy-deep/38 relative mx-auto w-full max-w-5xl border px-6 py-16 md:px-16 md:py-20"
+>
+  <!-- Desktop horizontal bulbs -->
+  <Bulbs count={22} class="absolute -top-1.5 right-6 left-6 hidden md:flex" />
+  <Bulbs count={22} class="absolute right-6 -bottom-1.5 left-6 hidden md:flex" />
+
+  <!-- Mobile horizontal bulbs -->
+  <Bulbs count={9} class="absolute -top-1.5 right-4 left-4 flex md:hidden" />
+  <Bulbs count={9} class="absolute right-4 -bottom-1.5 left-4 flex md:hidden" />
+
+  <!-- Desktop vertical bulbs -->
+  <Bulbs
+    count={7}
+    vertical
+    class="absolute top-8 bottom-8 -left-1.5 hidden w-3 md:flex"
+  />
+  <Bulbs
+    count={7}
+    vertical
+    class="absolute top-8 -right-1.5 bottom-8 hidden w-3 md:flex"
+  />
+
+  <!-- Mobile vertical bulbs -->
+  <Bulbs
+    count={12}
+    vertical
+    class="absolute top-8 bottom-8 -left-1.5 flex w-3 md:hidden"
+  />
+  <Bulbs
+    count={12}
+    vertical
+    class="absolute top-8 -right-1.5 bottom-8 flex w-3 md:hidden"
+  />
+
+  <div class="relative z-10">
+    <slot />
+  </div>
+</div>

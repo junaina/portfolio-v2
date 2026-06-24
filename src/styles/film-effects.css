@@ -1,0 +1,78 @@
+.film-grain::before {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  content: "";
+  opacity: 0.1;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 220 220' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)' opacity='0.65'/%3E%3C/svg%3E");
+}
+
+.film-vignette::after {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  content: "";
+  background: radial-gradient(
+    ellipse at center,
+    transparent 38%,
+    oklch(0 0 0 / 56%) 100%
+  );
+}
+
+.film-dust {
+  background-image:
+    radial-gradient(circle at 18% 22%, oklch(0.92 0.03 80 / 10%) 0 1px, transparent 2px),
+    radial-gradient(circle at 78% 30%, oklch(0.92 0.03 80 / 8%) 0 1px, transparent 2px),
+    radial-gradient(circle at 42% 76%, oklch(0.72 0.12 75 / 8%) 0 1px, transparent 2px),
+    radial-gradient(circle at 88% 82%, oklch(0.92 0.03 80 / 7%) 0 1px, transparent 2px);
+  background-size:
+    360px 360px,
+    460px 460px,
+    520px 520px,
+    610px 610px;
+}
+
+.hero-curtain {
+  background: radial-gradient(
+    ellipse at center top,
+    oklch(0.42 0.16 22) 0%,
+    oklch(0.18 0.08 22) 58%,
+    oklch(0.1 0.02 25) 100%
+  );
+}
+
+.spotlight {
+  background: radial-gradient(
+    ellipse at 50% 0%,
+    oklch(0.5 0.18 22 / 48%) 0%,
+    transparent 68%
+  );
+}
+
+.marquee-frame {
+  box-shadow:
+    0 0 42px oklch(0.72 0.12 75 / 16%),
+    inset 0 0 40px oklch(0 0 0 / 28%);
+}
+
+.hero-bulb {
+  width: 0.58rem;
+  height: 0.58rem;
+  border-radius: 999px;
+  background: radial-gradient(circle, #fff4c4 0%, #ffc85a 42%, #9a4e12 72%, #3a1605 100%);
+  box-shadow:
+    0 0 8px rgba(255, 200, 90, 0.72),
+    0 0 16px rgba(255, 200, 90, 0.32);
+  animation: bulb-flicker 4.8s ease-in-out infinite;
+}
+
+.hero-bulb:nth-child(2n) {
+  animation-delay: 0.7s;
+}
+
+.hero-bulb:nth-child(3n) {
+  animation-delay: 1.3s;
+}

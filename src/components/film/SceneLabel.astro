@@ -1,0 +1,17 @@
+---
+type Props = {
+  scene: string;
+  label: string;
+};
+
+const { scene, label } = Astro.props;
+---
+
+<div
+  class="text-gold-muted flex items-center gap-3 font-mono text-xs tracking-[0.32em] uppercase"
+>
+  <span class="text-gold whitespace-nowrap">{scene}</span>
+  <span class="bg-gold/40 h-px w-12 shrink-0"></span>
+  <span class="whitespace-nowrap">{label}</span>
+  <span class="bg-gold/15 h-px flex-1"></span>
+</div>
