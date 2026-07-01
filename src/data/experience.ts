@@ -12,7 +12,7 @@ export type ExperienceItem = {
   href?: string;
 };
 
-export const experiences = [
+export const experiences: readonly ExperienceItem[] = [
   {
     slug: "fast-nuces",
     type: "education",
@@ -73,4 +73,4 @@ export const experiences = [
     tags: ["Laravel", "PHP", "MySQL", "Authentication", "Dashboards", "RBAC"],
     href: "https://github.com/junaina/act-consultants-roster",
   },
-] as const satisfies readonly ExperienceItem[];
+];
