@@ -1,0 +1,53 @@
+---
+import { profile } from "@/data/profile";
+
+const [firstName, ...remainingName] = profile.name.split(" ");
+const lastName = remainingName.join(" ");
+---
+
+<section id="intro" class="hero-cinema film-grain film-vignette">
+  <div class="hero-side-strip hero-side-strip--left" aria-hidden="true"></div>
+  <div class="hero-side-strip hero-side-strip--right" aria-hidden="true"></div>
+
+  <div class="hero-stage">
+    <div class="hero-layout">
+      <div class="hero-copy">
+        <div class="hero-scene-meta">
+          <p>Scene 01 · Take 01</p>
+          <p>Starring</p>
+        </div>
+
+        <h1 class="hero-name" aria-label={profile.name}>
+          <span class="hero-name-line hero-name-line--primary">{firstName}</span>
+          <span class="hero-name-line hero-name-line--secondary">{lastName}</span>
+        </h1>
+
+        <div class="hero-intro-copy">
+          <p class="hero-subtitle">{profile.role}</p>
+
+          <p class="hero-description">
+            who's ideates like an artist, plans like an engineer, builds like a developer
+          </p>
+        </div>
+
+        <div class="hero-actions">
+          <a href="#projects" class="hero-action hero-action--primary">
+            🎬 View Projects
+          </a>
+
+          <a href="#contact" class="hero-action hero-action--secondary"> Get in Touch </a>
+        </div>
+      </div>
+
+      <div class="hero-visual" aria-hidden="true">
+        <img
+          src="/images/clapperboard.png"
+          alt=""
+          class="hero-clapperboard"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+    </div>
+  </div>
+</section>

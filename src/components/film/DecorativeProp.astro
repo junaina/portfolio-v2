@@ -1,0 +1,21 @@
+---
+type Props = {
+  src: string;
+  alt?: string;
+  class?: string;
+  hideOnMobile?: boolean;
+};
+
+const { src, alt = "", class: className = "", hideOnMobile = true } = Astro.props;
+---
+
+<img
+  src={src}
+  alt={alt}
+  aria-hidden={alt === "" ? "true" : "false"}
+  class:list={[
+    "pointer-events-none object-contain opacity-25 mix-blend-luminosity select-none",
+    hideOnMobile ? "hidden md:block" : "block",
+    className,
+  ]}
+/>

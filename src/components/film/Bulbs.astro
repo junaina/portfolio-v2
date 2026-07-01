@@ -1,0 +1,27 @@
+---
+type Props = {
+  count: number;
+  vertical?: boolean;
+  class?: string;
+};
+
+const { count, vertical = false, class: className = "" } = Astro.props;
+
+const bulbs = Array.from({ length: count }, (_, index) => index);
+---
+
+<div
+  aria-hidden="true"
+  class:list={[
+    "pointer-events-none",
+    "flex",
+    vertical ? "flex-col items-center justify-between" : "items-center justify-between",
+    className,
+  ]}
+>
+  {
+    bulbs.map((bulb) => (
+      <span class="hero-bulb block" style={`animation-delay: ${bulb * 0.12}s`} />
+    ))
+  }
+</div>

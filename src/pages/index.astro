@@ -1,21 +1,30 @@
 ---
 import BaseLayout from "@/components/layout/BaseLayout.astro";
+import FilmStripBand from "@/components/film/FilmStripBand.astro";
+import Navbar from "@/components/layout/Navbar.astro";
+import ContactSection from "@/components/sections/ContactSection.astro";
+import Footer from "@/components/layout/Footer.astro";
+import HeroSection from "@/components/sections/HeroSection.astro";
+import ProjectsSection from "@/components/sections/ProjectsSection.astro";
+import SkillsSection from "@/components/sections/SkillsSection.astro";
+import ExperienceSection from "@/components/sections/ExperienceSection.astro";
 ---
 
 <BaseLayout>
-  <main class="flex min-h-screen items-center justify-center px-6 text-center">
-    <section class="max-w-3xl">
-      <p class="mb-4 font-mono text-xs uppercase tracking-[0.35em] text-[var(--gold)]">
-        Portfolio Reel 
-      </p>
+  <Navbar />
 
-      <h1 class="font-serif text-5xl font-bold text-[var(--cream)] md:text-7xl">
-        Nur Junaina
-      </h1>
+  <main>
+    <HeroSection />
 
-      <p class="mt-6 text-lg text-[color:oklch(0.92_0.03_80_/_70%)]">
-       
-      </p>
-    </section>
+    <FilmStripBand frameStart={1} />
+
+    <SkillsSection />
+
+    <FilmStripBand reverse frameStart={12} />
+    <ExperienceSection />
+    <ProjectsSection />
+
+    <ContactSection />
   </main>
+  <Footer />
 </BaseLayout>
