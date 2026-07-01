@@ -1,8 +1,24 @@
 ---
 import ProjectCard from "@/components/project/ProjectCard.astro";
 import { projects } from "@/data/projects";
+
+const getProjectLinkRank = (project: (typeof projects)[number]) => {
+  if (project.deployment) return 0;
+  if (project.github) return 1;
+  return 2;
+};
+
+const sortedProjects = [...projects].sort((a, b) => {
+  const rankDifference = getProjectLinkRank(a) - getProjectLinkRank(b);
+
+  if (rankDifference !== 0) {
+    return rankDifference;
+  }
+
+  return Number(a.reel) - Number(b.reel);
+});
 ---
 
 <div class="grid gap-7 md:grid-cols-2">
-  {projects.map((project) => <ProjectCard project={project} />)}
+  {sortedProjects.map((project) => <ProjectCard project={project} />)}
 </div>
