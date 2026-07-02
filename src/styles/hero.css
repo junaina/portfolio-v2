@@ -328,8 +328,8 @@
   }
 
   .hero-clapperboard-motion {
-    right: -3.5rem;
-    bottom: -3rem;
+    right: 0.5rem;
+    bottom: 0rem;
     width: clamp(13rem, 80vw, 18rem);
     opacity: 0.16;
     transform-origin: center;
