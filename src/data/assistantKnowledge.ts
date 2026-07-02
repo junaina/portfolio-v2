@@ -1,11 +1,13 @@
+import { cvChunks } from "@/data/cv";
+import { miscChunks } from "@/data/misc";
+
 export type AssistantChunk = {
   id: string;
   title: string;
   text: string;
   keywords: readonly string[];
 };
-
-export const assistantChunks = [
+export const personalChunks = [
   {
     id: "profile",
     title: "Profile",
@@ -159,4 +161,9 @@ export const assistantChunks = [
     text: `Visitors can contact Nur Junaina through Linkedin at www.linkedin.com/in/nur-junaina-23825b1b4 or email junainanur@gmail.com `,
     keywords: ["contact", "email", "linkedin", "github", "cv", "resume", "hire", "reach"],
   },
+] as const satisfies readonly AssistantChunk[];
+export const assistantChunks = [
+  ...personalChunks,
+  ...cvChunks,
+  ...miscChunks,
 ] as const satisfies readonly AssistantChunk[];

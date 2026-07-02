@@ -11,13 +11,24 @@ function createId(): string {
   return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-async function sendAssistantMessage(message: string): Promise<string> {
+type AssistantHistoryMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+
+async function sendAssistantMessage(
+  message: string,
+  history: readonly AssistantHistoryMessage[],
+): Promise<string> {
   const response = await fetch("/api/assistant", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify({ message }),
+    body: JSON.stringify({
+      message,
+      history,
+    }),
   });
 
   const data = (await response.json()) as AssistantApiResponse;
@@ -37,12 +48,8 @@ export default function FloatingAssistant() {
   const prompts = useMemo<readonly AssistantPrompt[]>(
     () => [
       {
-        label: "Stack?",
-        value: "What is her tech stack?",
-      },
-      {
         label: "Projects",
-        value: "Tell me about her projects.",
+        value: "Tell me about all her projects.",
       },
       {
         label: "Why hire her?",
@@ -52,6 +59,7 @@ export default function FloatingAssistant() {
         label: "Contact",
         value: "How can I contact her?",
       },
+      { label: "Favourite Books", value: "What are her favourite books?" },
     ],
     [],
   );
@@ -108,8 +116,12 @@ export default function FloatingAssistant() {
     setIsLoading(true);
 
     try {
-      const answer = await sendAssistantMessage(cleanMessage);
+      const historyForApi = [...messages, userMessage].slice(-8).map((message) => ({
+        role: message.role,
+        content: message.content,
+      }));
 
+      const answer = await sendAssistantMessage(cleanMessage, historyForApi);
       const assistantMessage: AssistantMessage = {
         id: createId(),
         role: "assistant",

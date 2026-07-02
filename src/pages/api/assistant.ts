@@ -2,16 +2,21 @@ import type { APIRoute } from "astro";
 import { z } from "zod";
 import { askGroq } from "@/lib/server/ai/groq";
 import { buildAssistantPrompt } from "@/lib/server/rag/prompt";
-import { retrieveRelevantChunks } from "@/lib/server/rag/retrieve";
-import { getOffTopicReply, isLikelyPortfolioQuestion } from "@/lib/server/rag/guardrails";
+import { retrieveRelevantContext } from "@/lib/server/rag/retrieve";
+import { getOutOfScopeReply } from "@/lib/server/rag/guardrails";
 import { isRateLimited } from "@/lib/server/rate-limit";
 
 export const prerender = false;
 
-const AssistantRequestSchema = z.object({
-  message: z.string().trim().min(1).max(500),
+const AssistantHistoryMessageSchema = z.object({
+  role: z.enum(["user", "assistant"]),
+  content: z.string().trim().min(1).max(1000),
 });
 
+const AssistantRequestSchema = z.object({
+  message: z.string().trim().min(1).max(500),
+  history: z.array(AssistantHistoryMessageSchema).max(8).optional(),
+});
 function getClientIdentifier(request: Request): string {
   const forwardedFor = request.headers.get("x-forwarded-for");
 
@@ -23,7 +28,47 @@ function getClientIdentifier(request: Request): string {
 
   return "anonymous";
 }
+function isFollowUpQuestion(message: string): boolean {
+  const normalized = message.trim().toLowerCase();
 
+  return [
+    "why",
+    "why?",
+    "how",
+    "how?",
+    "how so",
+    "how so?",
+    "explain",
+    "explain more",
+    "tell me more",
+    "what do you mean",
+    "why is that",
+    "why those",
+    "why these",
+    "elaborate",
+    "that's it?",
+    "detail",
+  ].includes(normalized);
+}
+
+function buildRetrievalQuestion({
+  message,
+  history,
+}: {
+  message: string;
+  history: readonly { role: "user" | "assistant"; content: string }[];
+}): string {
+  if (!isFollowUpQuestion(message)) {
+    return message;
+  }
+
+  const recentContext = history
+    .slice(-6)
+    .map((item) => `${item.role}: ${item.content}`)
+    .join("\n");
+
+  return `${recentContext}\nFollow-up question: ${message}`;
+}
 export const POST: APIRoute = async ({ request }) => {
   try {
     const identifier = getClientIdentifier(request);
@@ -50,26 +95,30 @@ export const POST: APIRoute = async ({ request }) => {
       );
     }
 
-    const { message } = parsed.data;
+    const { message, history = [] } = parsed.data;
+    const retrievalQuestion = buildRetrievalQuestion({
+      message,
+      history,
+    });
 
-    if (!isLikelyPortfolioQuestion(message)) {
+    const retrieval = retrieveRelevantContext(retrievalQuestion);
+    if (!retrieval.isRelevant) {
       return Response.json({
-        answer: getOffTopicReply(),
+        answer: getOutOfScopeReply(),
         sources: [],
       });
     }
 
-    const chunks = retrieveRelevantChunks(message);
     const prompt = buildAssistantPrompt({
       question: message,
-      chunks,
+      chunks: retrieval.chunks,
+      history,
     });
-
     const answer = await askGroq({ prompt });
 
     return Response.json({
       answer,
-      sources: chunks.map((chunk) => chunk.title),
+      sources: retrieval.chunks.map((chunk) => chunk.title),
     });
   } catch (error) {
     console.error("Assistant API error:", error);
