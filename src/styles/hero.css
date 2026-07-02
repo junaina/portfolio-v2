@@ -5,7 +5,7 @@
   --hero-title-tracking: -0.06em;
 
   --hero-title-primary: var(--cream);
-  --hero-title-secondary: oklch(36.227% 0.12432 29.578 / 0.674);
+  --hero-title-secondary: oklch(0.38 0.14 22 / 62%);
   --hero-title-shadow: oklch(0.08 0.01 24 / 55%);
 
   --hero-title-to-copy-gap: clamp(2.4rem, 4.2vw, 3.8rem);

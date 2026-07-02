@@ -4,6 +4,8 @@ import react from "@astrojs/react";
 import tailwindcss from "@tailwindcss/vite";
 import { fileURLToPath, URL } from "node:url";
 
+import vercel from "@astrojs/vercel";
+
 export default defineConfig({
   integrations: [react()],
 
@@ -15,4 +17,6 @@ export default defineConfig({
       },
     },
   },
+
+  adapter: vercel(),
 });

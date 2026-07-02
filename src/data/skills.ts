@@ -38,8 +38,8 @@ export const skillGroups = [
     ],
   },
   {
-    title: "Post-Production",
-    subtitle: "DevOps and Cloud",
+    title: "DevOps and Cloud",
+    subtitle: "Post-Production",
     items: [
       "Git",
       "GitHub",
