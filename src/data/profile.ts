@@ -3,7 +3,7 @@ export const profile = {
   initials: "Junaina",
   role: "Software Engineer",
   email: "junainanur@gmail.com",
-  linkedin: "www.linkedin.com/in/nur-junaina-23825b1b4",
+  linkedin: "https://www.linkedin.com/in/nur-junaina-23825b1b4",
   github: "https://github.com/junaina",
   cvPath: "/cv/Nur-Junaina-CV.pdf",
   availability:
