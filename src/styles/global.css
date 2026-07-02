@@ -3,7 +3,8 @@
 @import "./animations.css";
 @import "./film-effects.css";
 @import "./hero.css";
-@custom-variant dark (&:is(.dark *));
+@import "./motion.css";
+@custom-variant dark (&: is(.dark *));
 
 * {
   box-sizing: border-box;
@@ -46,15 +47,4 @@ a {
 ::selection {
   background: oklch(0.72 0.12 75 / 30%);
   color: var(--cream);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *,
-  *::before,
-  *::after {
-    scroll-behavior: auto !important;
-    animation-duration: 0.001ms !important;
-    animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
-  }
 }

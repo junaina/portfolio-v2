@@ -9,7 +9,10 @@ type Props = {
 const { group } = Astro.props;
 ---
 
-<article class="border-gold/15 bg-card relative overflow-visible rounded-lg border p-7">
+<article
+  data-motion-card
+  class="border-gold/15 bg-card relative overflow-visible rounded-lg border p-7"
+>
   {
     group.label && (
       <div class="bg-primary text-primary-foreground absolute top-0 left-1/2 z-20 -translate-x-1/2 -translate-y-1/2 rounded-sm px-4 py-2 font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase shadow-lg">
