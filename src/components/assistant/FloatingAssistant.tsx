@@ -1,43 +1,55 @@
 import { useEffect, useMemo, useState } from "react";
 import AssistantButton from "@/components/assistant/AssistantButton";
 import AssistantPanel from "@/components/assistant/AssistantPanel";
-import type { AssistantMessage, AssistantPrompt } from "@/components/assistant/types";
+import type {
+  AssistantApiResponse,
+  AssistantMessage,
+  AssistantPrompt,
+} from "@/components/assistant/types";
 
 function createId(): string {
-  return crypto.randomUUID();
+  return `${Date.now()}-${Math.random().toString(16).slice(2)}`;
 }
 
-function getDemoReply(input: string): string {
-  const question = input.toLowerCase();
+type AssistantHistoryMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
 
-  if (question.includes("stack") || question.includes("tech")) {
-    return "Day 5 will connect this to a real AI API. The assistant will answer from Junaina’s CV, projects, and portfolio details.";
+async function sendAssistantMessage(
+  message: string,
+  history: readonly AssistantHistoryMessage[],
+): Promise<string> {
+  const response = await fetch("/api/assistant", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      message,
+      history,
+    }),
+  });
+
+  const data = (await response.json()) as AssistantApiResponse;
+
+  if (!response.ok || "error" in data) {
+    return "The assistant is temporarily unavailable. You can still use the Closing Credits section for email, LinkedIn, GitHub, and CV links.";
   }
 
-  if (question.includes("project")) {
-    return "I’ll soon be able to explain Junaina’s featured projects, including MindMesh and cloud/AI work, using a small RAG-style knowledge base.";
-  }
-
-  if (question.includes("contact") || question.includes("hire")) {
-    return "You can use the Closing Credits section for email, LinkedIn, GitHub, and CV links.";
-  }
-
-  return "This is the visual shell for NJ.AI. The real API-backed assistant gets integrated on Day 5.";
+  return data.answer;
 }
 
 export default function FloatingAssistant() {
   const [isOpen, setIsOpen] = useState(false);
   const [input, setInput] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
 
   const prompts = useMemo<readonly AssistantPrompt[]>(
     () => [
       {
-        label: "Stack?",
-        value: "What is her tech stack?",
-      },
-      {
         label: "Projects",
-        value: "Tell me about her projects.",
+        value: "Tell me about all her projects.",
       },
       {
         label: "Why hire her?",
@@ -47,15 +59,17 @@ export default function FloatingAssistant() {
         label: "Contact",
         value: "How can I contact her?",
       },
+      { label: "Favourite Books", value: "What are her favourite books?" },
     ],
     [],
   );
 
   const [messages, setMessages] = useState<readonly AssistantMessage[]>([
     {
-      id: createId(),
+      id: "initial-assistant-message",
       role: "assistant",
-      content: "Ask me about Junaina’s projects, stack, experience, or contact details.",
+      content:
+        "Ask me about Junaina’s projects, stack, experience, CV, or contact details.",
     },
   ]);
 
@@ -85,10 +99,10 @@ export default function FloatingAssistant() {
     };
   }, []);
 
-  function submitMessage(message: string) {
+  async function submitMessage(message: string) {
     const cleanMessage = message.trim();
 
-    if (!cleanMessage) return;
+    if (!cleanMessage || isLoading) return;
 
     const userMessage: AssistantMessage = {
       id: createId(),
@@ -96,23 +110,45 @@ export default function FloatingAssistant() {
       content: cleanMessage,
     };
 
-    const assistantMessage: AssistantMessage = {
-      id: createId(),
-      role: "assistant",
-      content: getDemoReply(cleanMessage),
-    };
-
-    setMessages((current) => [...current, userMessage, assistantMessage]);
+    setMessages((current) => [...current, userMessage]);
     setInput("");
     setIsOpen(true);
+    setIsLoading(true);
+
+    try {
+      const historyForApi = [...messages, userMessage].slice(-8).map((message) => ({
+        role: message.role,
+        content: message.content,
+      }));
+
+      const answer = await sendAssistantMessage(cleanMessage, historyForApi);
+      const assistantMessage: AssistantMessage = {
+        id: createId(),
+        role: "assistant",
+        content: answer,
+      };
+
+      setMessages((current) => [...current, assistantMessage]);
+    } catch {
+      const fallbackMessage: AssistantMessage = {
+        id: createId(),
+        role: "assistant",
+        content:
+          "Something went wrong while reaching Junaina.AI. Please try again in a moment.",
+      };
+
+      setMessages((current) => [...current, fallbackMessage]);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   function handleSubmit() {
-    submitMessage(input);
+    void submitMessage(input);
   }
 
   function handlePromptSelect(value: string) {
-    submitMessage(value);
+    void submitMessage(value);
   }
 
   return (
@@ -124,6 +160,7 @@ export default function FloatingAssistant() {
           messages={messages}
           prompts={prompts}
           input={input}
+          isLoading={isLoading}
           onInputChange={setInput}
           onPromptSelect={handlePromptSelect}
           onSubmit={handleSubmit}
