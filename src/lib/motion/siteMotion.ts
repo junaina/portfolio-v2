@@ -51,7 +51,44 @@ function setupNavbar() {
     },
   );
 }
+function setupClapperboard() {
+  const clapper = document.querySelector<HTMLElement>("[data-motion-clapper]");
 
+  if (!clapper || clapper.dataset.motionReady === "true") return;
+
+  clapper.dataset.motionReady = "true";
+
+  const entrance = animate(
+    clapper,
+    {
+      y: [10, -2, 0],
+      rotate: [-1.6, 0.45, 0],
+      scale: [0.96, 1.015, 1],
+    },
+    {
+      duration: 1.05,
+      delay: 0.55,
+      ease,
+    },
+  );
+
+  entrance.finished.then(() => {
+    if (!clapper.isConnected) return;
+
+    animate(
+      clapper,
+      {
+        y: [0, -7, 0],
+        rotate: [0, -0.4, 0.25, 0],
+      },
+      {
+        duration: 7.5,
+        repeat: Infinity,
+        ease: "easeInOut",
+      },
+    );
+  });
+}
 function setupHero() {
   const hero = document.querySelector<HTMLElement>("[data-motion-hero]");
 
@@ -200,7 +237,7 @@ function setupMotion() {
   // if (prefersReducedMotion()) {
   //   return;
   // }
-
+  setupClapperboard();
   setupNavbar();
   setupHero();
   setupSectionReveals();
