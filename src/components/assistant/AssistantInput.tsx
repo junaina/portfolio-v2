@@ -1,18 +1,21 @@
-import type { FormEvent } from "react";
-
 type AssistantInputProps = {
   value: string;
+  isLoading: boolean;
   onChange: (value: string) => void;
   onSubmit: () => void;
 };
 
 export default function AssistantInput({
   value,
+  isLoading,
   onChange,
   onSubmit,
 }: AssistantInputProps) {
-  function handleSubmit(event: FormEvent<HTMLFormElement>) {
+  function handleSubmit(event: React.FormEvent<HTMLFormElement>) {
     event.preventDefault();
+
+    if (isLoading) return;
+
     onSubmit();
   }
 
@@ -30,18 +33,20 @@ export default function AssistantInput({
       <input
         id="assistant-input"
         value={value}
+        disabled={isLoading}
         onChange={(event) => onChange(event.target.value)}
         maxLength={500}
-        placeholder="Enter query script..."
-        className="text-cream placeholder:text-cream-muted/40 min-w-0 flex-1 bg-transparent font-mono text-sm outline-none"
+        placeholder={isLoading ? "Rolling response..." : "Enter query script..."}
+        className="text-cream placeholder:text-cream-muted/40 min-w-0 flex-1 bg-transparent font-mono text-sm outline-none disabled:cursor-not-allowed disabled:opacity-60"
       />
 
       <button
         type="submit"
-        className="text-gold text-2xl transition-transform hover:translate-x-1"
+        disabled={isLoading}
+        className="text-gold text-2xl transition-transform hover:translate-x-1 disabled:cursor-not-allowed disabled:opacity-50"
         aria-label="Send assistant message"
       >
-        ▶
+        {isLoading ? "…" : "▶"}
       </button>
     </form>
   );
