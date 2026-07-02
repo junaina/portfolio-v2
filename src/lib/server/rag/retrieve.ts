@@ -180,6 +180,6 @@ export function retrieveRelevantContext(question: string): RetrievalResult {
     chunks: matches.map((item) => item.chunk),
     maxScore,
     totalScore,
-    isRelevant: maxScore >= 3 || totalScore >= 6,
+    isRelevant: maxScore >= 0 || totalScore >= 5,
   };
 }
