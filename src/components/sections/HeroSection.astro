@@ -5,24 +5,24 @@ const [firstName, ...remainingName] = profile.name.split(" ");
 const lastName = remainingName.join(" ");
 ---
 
-<section id="intro" class="hero-cinema film-grain film-vignette">
+<section id="intro" data-motion-hero class="hero-cinema film-grain film-vignette">
   <div class="hero-side-strip hero-side-strip--left" aria-hidden="true"></div>
   <div class="hero-side-strip hero-side-strip--right" aria-hidden="true"></div>
 
   <div class="hero-stage">
     <div class="hero-layout">
       <div class="hero-copy">
-        <div class="hero-scene-meta">
+        <div class="hero-scene-meta" data-motion-item>
           <p>Scene 01 · Take 01</p>
           <p>Starring</p>
         </div>
 
-        <h1 class="hero-name" aria-label={profile.name}>
+        <h1 class="hero-name" data-motion-item aria-label={profile.name}>
           <span class="hero-name-line hero-name-line--primary">{firstName}</span>
           <span class="hero-name-line hero-name-line--secondary">{lastName}</span>
         </h1>
 
-        <div class="hero-intro-copy">
+        <div class="hero-intro-copy" data-motion-item>
           <p class="hero-subtitle">{profile.role}</p>
 
           <p class="hero-description">
@@ -30,7 +30,7 @@ const lastName = remainingName.join(" ");
           </p>
         </div>
 
-        <div class="hero-actions">
+        <div class="hero-actions" data-motion-item>
           <a href="#projects" class="hero-action hero-action--primary">
             🎬 View Projects
           </a>
@@ -39,7 +39,7 @@ const lastName = remainingName.join(" ");
         </div>
       </div>
 
-      <div class="hero-visual" aria-hidden="true">
+      <div class="hero-visual" aria-hidden="true" data-motion-hero-visual>
         <img
           src="/images/clapperboard.png"
           alt=""

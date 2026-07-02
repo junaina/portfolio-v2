@@ -320,10 +320,10 @@
   }
 
   .hero-clapperboard {
-    right: -3.5rem;
-    bottom: -3rem;
+    right: 0.5rem;
+    bottom: 0rem;
     width: clamp(13rem, 80vw, 18rem);
-    opacity: 0.16;
+    opacity: 0.23;
     transform: rotate(-18deg);
     transform-origin: center;
     filter: grayscale(1) sepia(0.18) saturate(0.45) brightness(0.55) contrast(0.9);

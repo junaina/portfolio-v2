@@ -19,6 +19,7 @@ const hasLinks = Boolean(deploymentHref || githubHref || fallbackHref);
 ---
 
 <article
+  data-motion-card
   class:list={[
     "group border-gold/15 bg-card hover:border-gold/35 relative overflow-hidden rounded-lg border p-7 transition-colors md:p-9",
     project.size === "wide" ? "md:col-span-2" : "",
