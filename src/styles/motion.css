@@ -1,0 +1,13 @@
+@media (prefers-reduced-motion: no-preference) {
+  [data-motion-item],
+  [data-motion-card],
+  [data-motion-film],
+  [data-motion-hero-visual],
+  [data-motion-nav] {
+    will-change: transform, opacity, filter;
+  }
+
+  [data-motion-card] {
+    transform-origin: center;
+  }
+}
