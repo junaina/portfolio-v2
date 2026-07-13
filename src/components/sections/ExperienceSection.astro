@@ -1,0 +1,158 @@
+---
+import SceneLabel from "@/components/film/SceneLabel.astro";
+import { experiences } from "@/data/experience";
+
+const educationItems = experiences.filter((item) => item.type === "education");
+const workItems = experiences.filter((item) => item.type === "work");
+---
+
+<section
+  id="experience"
+  data-motion-section
+  class="border-gold/10 bg-background relative overflow-hidden border-t px-6 py-28 md:px-8 md:py-36"
+>
+  <div data-motion-item class="relative z-10 mx-auto max-w-7xl">
+    <SceneLabel scene="SC. 03" label="Experience Reel" />
+
+    <div
+      data-motion-item
+      class="mt-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+    >
+      <h2
+        class="font-display text-[clamp(3.5rem,10vw,9.5rem)] leading-[0.78] font-black tracking-[-0.065em] uppercase"
+      >
+        <span class="text-cream block">WORK</span>
+        <span class="text-cream/30 block">Experience</span>
+      </h2>
+
+      <p class="text-gold-muted font-mono text-xs tracking-[0.42em] uppercase">
+        Academic Achievements · Work ·
+      </p>
+    </div>
+
+    <div class="mt-16 grid gap-7 lg:grid-cols-[0.9fr_1.1fr]">
+      <div
+        data-motion-card
+        class="border-gold/15 bg-card relative overflow-hidden rounded-lg border p-7 md:p-9"
+      >
+        <div class="border-gold/8 absolute inset-x-0 top-0 h-4 border-b bg-black/15">
+        </div>
+
+        <div class="relative z-10 pt-5">
+          <span
+            class="bg-primary text-primary-foreground rounded-sm px-4 py-2 font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase"
+          >
+            Academics
+          </span>
+
+          {
+            educationItems.map((item) => (
+              <article data-motion-card class="mt-8">
+                <p class="text-gold-muted font-mono text-[0.7rem] tracking-[0.28em] uppercase">
+                  {item.period}
+                </p>
+
+                <h3 class="font-display text-cream mt-4 text-4xl leading-tight font-black tracking-[-0.035em] md:text-5xl">
+                  {item.role}
+                </h3>
+
+                <p class="text-cream-muted mt-3 text-base leading-7">
+                  {item.organization} · {item.location}
+                </p>
+
+                <p class="text-cream-muted mt-6 max-w-2xl text-base leading-8">
+                  {item.summary}
+                </p>
+
+                <ul class="mt-7 space-y-4">
+                  {item.bullets.map((bullet) => (
+                    <li class="border-burgundy/60 text-cream-muted border-l pl-4 text-sm leading-7">
+                      {bullet}
+                    </li>
+                  ))}
+                </ul>
+
+                <div class="mt-8 flex flex-wrap gap-3">
+                  {item.tags.map((tag) => (
+                    <span class="text-gold-muted font-mono text-[0.7rem] tracking-[0.2em] uppercase">
+                      #{tag}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            ))
+          }
+        </div>
+      </div>
+
+      <div class="grid gap-7">
+        {
+          workItems.map((item, index) => (
+            <article
+              data-motion-card
+              class="border-gold/15 bg-card hover:border-gold/35 relative overflow-hidden rounded-lg border p-7 transition-colors md:p-9"
+            >
+              <div class="border-gold/8 absolute inset-x-0 top-0 h-4 border-b bg-black/15" />
+
+              <div class="relative z-10 flex flex-wrap items-center gap-4 pt-5">
+                <span class="bg-primary text-primary-foreground rounded-sm px-4 py-2 font-mono text-[0.62rem] font-bold tracking-[0.22em] uppercase">
+                  {item.label}
+                </span>
+
+                <span class="text-cream-muted/45 font-mono text-[0.7rem] tracking-[0.28em] uppercase">
+                  Reel · 0{index + 1}
+                </span>
+              </div>
+
+              <div class="relative z-10 mt-8">
+                <p class="text-gold-muted font-mono text-[0.7rem] tracking-[0.28em] uppercase">
+                  {item.period}
+                </p>
+
+                <h3 class="font-display text-cream mt-4 text-3xl leading-tight font-black tracking-[-0.035em] md:text-4xl">
+                  {item.role}
+                </h3>
+
+                <p class="text-cream-muted mt-3 text-base leading-7">
+                  {item.organization} · {item.location}
+                </p>
+
+                <p class="text-cream-muted mt-6 max-w-2xl text-base leading-8">
+                  {item.summary}
+                </p>
+              </div>
+
+              <ul class="relative z-10 mt-7 space-y-4">
+                {item.bullets.map((bullet) => (
+                  <li class="border-burgundy/60 text-cream-muted border-l pl-4 text-sm leading-7">
+                    {bullet}
+                  </li>
+                ))}
+              </ul>
+
+              <div class="relative z-10 mt-8 flex flex-wrap gap-3 pr-20">
+                {item.tags.map((tag) => (
+                  <span class="text-gold-muted font-mono text-[0.7rem] tracking-[0.2em] uppercase">
+                    #{tag}
+                  </span>
+                ))}
+              </div>
+
+              {item.href && (
+                <a
+                  href={item.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={`Open ${item.organization} project repository`}
+                  class="border-gold/35 text-gold hover:border-gold hover:bg-gold hover:text-background absolute right-8 bottom-8 flex h-12 w-12 items-center justify-center rounded-full border font-mono text-xl transition-all hover:-translate-y-1"
+                >
+                  ↗
+                </a>
+              )}
+            </article>
+          ))
+        }
+      </div>
+    </div>
+  </div>
+</section>

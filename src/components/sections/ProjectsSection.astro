@@ -5,21 +5,25 @@ import ProjectGrid from "@/components/project/ProjectGrid.astro";
 
 <section
   id="projects"
+  data-motion-section
   class="border-gold/10 bg-background relative overflow-hidden border-t px-6 py-28 md:px-8 md:py-36"
 >
-  <div class="relative z-10 mx-auto max-w-7xl">
-    <SceneLabel scene="SC. 03" label="Feature Presentations" />
+  <div data-motion-item class="relative z-10 mx-auto max-w-7xl">
+    <SceneLabel scene="SC. 04" label="Featured Projects" />
 
-    <div class="mt-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between">
+    <div
+      data-motion-item
+      class="mt-16 flex flex-col gap-8 lg:flex-row lg:items-end lg:justify-between"
+    >
       <h2
         class="font-display text-[clamp(4rem,10vw,9.5rem)] leading-[0.78] font-black tracking-[-0.065em] uppercase"
       >
-        <span class="text-cream block">Feature</span>
-        <span class="text-cream/30 block">Presentations</span>
+        <span class="text-cream block">Featured</span>
+        <span class="text-cream/30 block">Projects</span>
       </h2>
 
       <p class="text-gold-muted font-mono text-xs tracking-[0.42em] uppercase">
-        Selected Works (2021–2024)
+        Selected Works (2022–2026)
       </p>
     </div>
 

@@ -7,8 +7,8 @@ export type SkillGroup = {
 
 export const skillGroups = [
   {
-    title: "Cinematography",
-    subtitle: "Frontend",
+    title: "Frontend",
+    subtitle: "Cinematography",
     items: [
       "React",
       "Next.js",
@@ -17,12 +17,13 @@ export const skillGroups = [
       "Tailwind CSS",
       "Motion",
       "shadcn/ui",
+      "HTML/CSS",
     ],
   },
   {
-    title: "Structuring",
-    subtitle: "Backend",
-    label: "Core Module",
+    title: "Backend",
+    subtitle: "Structuring",
+    label: "Core Skills",
     items: [
       "Node.js",
       "Express",
@@ -32,16 +33,17 @@ export const skillGroups = [
       "MongoDB",
       "Prisma",
       "Python",
+      "TensorFLow and Scikit-learn",
+      "Laravel Basics",
     ],
   },
   {
-    title: "Post-Production",
-    subtitle: "DevOps and Cloud",
+    title: "DevOps and Cloud",
+    subtitle: "Post-Production",
     items: [
       "Git",
       "GitHub",
-      "Docker",
-      "Kubernetes",
+      "Docker and Kubernetes Basics",
       "Linux",
       "Vercel",
       "AWS Basics",
